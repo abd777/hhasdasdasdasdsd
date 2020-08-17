@@ -12,6 +12,7 @@ import Vue from 'vue'
 import App from './App.vue'
 // Vuesax Component Framework
 import Vuesax from 'vuesax'
+import vuetify from '@/plugins/vuetify'
 import 'material-icons/iconfont/material-icons.css' //Material Icons
 import 'vuesax/dist/vuesax.css'; // Vuesax
 Vue.use(Vuesax)
@@ -80,6 +81,7 @@ firebase.initializeApp(config);
 firebase.auth().onAuthStateChanged(user=>{
   if(user){
     firebase.firestore().collection("users").doc(user.uid).get().then(snapshot=>{
+      console.log(snapshot.data())
      if(snapshot.data().role=="vendor")
      {
       store.dispatch('setUser',snapshot.data())
@@ -97,6 +99,7 @@ firebase.auth().onAuthStateChanged(user=>{
 new Vue({
     router,
     store,
+    vuetify,
     render: h => h(App)
 }).$mount('#app')
 }

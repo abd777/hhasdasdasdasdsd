@@ -9,9 +9,9 @@
 
 
 <template>
-	<div id="app" :class="vueAppClasses">
+	<v-app id="app" :class="vueAppClasses">
 		<router-view @setAppClasses="setAppClasses" />
-	</div>
+	</v-app>
 </template>
 
 <script>

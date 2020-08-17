@@ -37,8 +37,8 @@ import router from '@/router';
 export default {
   data() {
     return {
-      email: "demo@demo.com",
-      password: "demodemo",
+      email: "admin33@vuecms.com",
+      password: "aaaaaa",
       checkbox_remember_me: false,
     };
   },

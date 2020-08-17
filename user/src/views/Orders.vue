@@ -1,20 +1,81 @@
 <template>
-  <h4>
-    orders
-    <pre>
-        Features distribution on this page
-        (order's history will be also there and reciepts as per completed order)
-        + Can mark an order as completed (as vendor , vice versa)
-        + Can rate the vendor.
-        + Client will receive a receipt of the services that was complete once order is initiated and once it’s complete.
-
-    </pre>
-  </h4>
+<div>
+<orders :headers="headers" :contents="orders" title="Orders" :isNew="false" :isOrders="true" @verify="showDialog($event)" />		
+		<v-dialog v-model="dialog" min-width="50%" :max-width="$vuetify.breakpoint.smAndUp?'50%':'100%'">
+			<v-container class="white">
+			</v-container>
+        </v-dialog>
+</div>
 </template>
-
 <script>
-export default {};
+import table from '@/layouts/components/table/table.vue';
+export default {
+	data(){
+		return{
+			dialog:false,
+			fullOrder:{
+				id:null,
+				orderBy:null,
+				startedOn:null,
+				expectedEndDate:null,
+				vendor:null,
+				service:null,
+				isFixedPrice:true,
+				price:null,
+			},
+			headers:[
+          {
+            text: 'ID',
+            align: 'start',
+            sortable: true,
+            value: 'id',
+          },
+          { text: 'Started On', value: 'startedOn', sortable: true, },
+          { text: 'Expected End Date', value: 'expectedEndDate', sortable: true, },
+          { text: 'Service', value: 'service', sortable: true, },
+		  { text: 'Price', value: 'price', sortable: true, },
+		  { text: 'Actions', value: 'actions', sortable: true, },
+        ],orders:[
+			{
+				id:1,
+				orderBy:'email@gmail.com',
+				startedOn:'timestamp',
+				expectedEndDate:'timestamp',
+				vendor:'email@gmail.com',
+				service:'leorem ipsum',
+				isFixedPrice:true,
+				price:128,
+			},
+			{
+				id:2,
+				orderBy:'email@gmail.com',
+				startedOn:'timestamp',
+				expectedEndDate:'timestamp',
+				vendor:'email@gmail.com',
+				service:'leorem ipsum',
+				isFixedPrice:true,
+				price:128,
+			},
+			{
+				id:3,
+				orderBy:'email@gmail.com',
+				startedOn:'timestamp',
+				expectedEndDate:'timestamp',
+				vendor:'email@gmail.com',
+				service:'leorem ipsum',
+				isFixedPrice:false,
+				price:128,
+			},
+		]
+		}
+	},
+	methods:{
+		showDialog(item){
+			this.fullOrder=item;
+			console.log(this.fullOrder)
+			this.dialog=true;
+		},		
+	},
+	    components:{orders:table},
+}
 </script>
-
-<style>
-</style>

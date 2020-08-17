@@ -14,6 +14,7 @@ import App from './App.vue'
 import Vuesax from 'vuesax'
 import 'material-icons/iconfont/material-icons.css' //Material Icons
 import 'vuesax/dist/vuesax.css'; // Vuesax
+import vuetify from '@/plugins/vuetify'
 Vue.use(Vuesax)
 
 
@@ -94,6 +95,7 @@ firebase.auth().onAuthStateChanged(user=>{
 new Vue({
     router,
     store,
+    vuetify,
     render: h => h(App)
 }).$mount('#app')
 }

@@ -14,6 +14,8 @@ import App from './App.vue'
 import Vuesax from 'vuesax'
 import 'material-icons/iconfont/material-icons.css' //Material Icons
 import 'vuesax/dist/vuesax.css'; // Vuesax
+import vuetify from '@/plugins/vuetify' // path to vuetify export
+
 Vue.use(Vuesax)
 
 
@@ -80,16 +82,20 @@ firebase.initializeApp(config);
 firebase.auth().onAuthStateChanged(user=>{
   if(user){
     firebase.firestore().collection("users").doc(user.uid).get().then(snapshot=>{
-     if(snapshot.data().role=="admin")
+     console.log('Role',snapshot.data());
+      if(snapshot.data().role=="admin")
      {
+      console.log('portion');
       store.dispatch('setUser',snapshot.data())
      }
      else{
+       console.log('else portion');
       firebase.auth().signOut().then(res=>{
-        location.replace('https://happysewa.com/');
+        //location.replace('https://happysewa.com/');
       })
      } 
-
+    }).catch(err=>{
+      console.log('Error',err);
     })
   }else{
 
@@ -97,6 +103,7 @@ firebase.auth().onAuthStateChanged(user=>{
 new Vue({
     router,
     store,
+    vuetify,
     render: h => h(App)
 }).$mount('#app')
 }

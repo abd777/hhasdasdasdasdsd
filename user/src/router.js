@@ -29,10 +29,10 @@ const router = new Router({
       component: () => import('./layouts/main/Main.vue'),
       beforeEnter: (to, from, next) => {
         console.log(firebase.auth().currentUser)
-        if (firebase.auth().currentUser) {
+        if (!firebase.auth().currentUser) {
           next()
         } else {
-          location.replace('http://localhost:8080/happysewa');
+          // location.replace('http://localhost:8080/happysewa');
         }
       },
       children: [
