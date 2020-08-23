@@ -1,6 +1,5 @@
 <template>
   <div>
-    <appHeader />
     <div
       :style="{'background-image':`url(hero.jpg)`}"
       class="container_wrapper d-flex flex-column justify-content-center align-items-center"

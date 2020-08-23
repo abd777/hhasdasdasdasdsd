@@ -81,7 +81,7 @@ firebase.initializeApp(config);
 firebase.auth().onAuthStateChanged(user => {
   if (user) {
     firebase.firestore().collection("users").doc(user.uid).get().then(snapshot => {
-      if (snapshot.exists && snapshot.data() != null && snapshot.data().role == "user") {
+      if (snapshot.exists && snapshot.data() != null && snapshot.data().role == "user" &&  (!snapshot.data().status||snapshot.data().status=='active') ) {
         store.dispatch('setUser', snapshot.data())
       } else {
         firebase.auth().signOut().then(res => {

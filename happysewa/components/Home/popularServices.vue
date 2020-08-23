@@ -6,11 +6,11 @@
         <b-col cols="12" md="4" sm="6" lg="3" v-for="(item,i) in services" :key="i" class="mt-3">
           <b-card
             no-body
-            img-height="227px"
-            img-src="https://placekitten.com/380/200"
+            img-height="207px"
+            :img-src="item.image"
             img-alt="Image"
             img-top
-            class="shadow rounded"
+            class="c_card"
           >
             <b-card-body>
               <b-card-title>{{item.title}}</b-card-title>
@@ -46,9 +46,9 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
- this.$store.dispatch("getServices").then(res=>{
-   this.services= res
- })
+      this.$store.dispatch("getServices").then((res) => {
+        this.services = res;
+      });
     });
   },
 };

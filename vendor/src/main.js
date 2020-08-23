@@ -85,7 +85,7 @@ firebase.auth().onAuthStateChanged(user => {
     firebase.firestore().collection("users").doc(user.uid).get().then(snapshot => {
       console.log(snapshot.data())
       console.log('Role', snapshot.data());
-      if (snapshot.exists && snapshot.data() != null && snapshot.data().role == "vendor") {
+      if (snapshot.exists && snapshot.data() != null && snapshot.data().role == "vendor" && (!snapshot.data().status||snapshot.data().status=='active') ) {
         console.log('portion');
         store.commit('setUser', snapshot.data())
       } else {

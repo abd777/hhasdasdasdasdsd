@@ -1,20 +1,22 @@
 <template>
   <div>
+    <appHeader></appHeader>
     <Nuxt />
   </div>
 </template>
+<script>
+import header from "@/components/home/header";
+export default {
+  components: {
+    appHeader: header,
+  },
+};
+</script>
 
 <style>
 html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -58,5 +60,14 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+.c_card {
+  border: 2px solid #f5f5f5;
+  border-radius: 18px;
+  box-shadow: 0 20px 20px 0 rgba(0, 0, 0, 0.05);
+}
+.c_card > img {
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
 }
 </style>
