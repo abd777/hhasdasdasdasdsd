@@ -1,0 +1,26 @@
+{
+  "name": "happysewa",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt  --port 8080",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "export": "nuxt export",
+    "serve": "nuxt serve"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.11.0",
+    "bootstrap": "^4.5.0",
+    "bootstrap-vue": "^2.15.0",
+    "firebase": "^7.17.1",
+    "node-sass": "^4.14.1",
+    "nuxt": "^2.13.0",
+    "nuxt-material-design-icons": "^1.0.4",
+    "sass-loader": "^9.0.2",
+    "vue-cool-lightbox": "^2.4.1",
+    "vue-phone-number-input": "^1.1.10",
+    "vue-verification-code-input": "^1.0.0"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,35 @@
+{
+    "categories": [
+        {
+            "title": "STRING",
+            "id": "SELF UID",
+            "created_at": "TIMESTAMP",
+            "createde_by": "UID",
+            "icon": "STRING"
+        }
+    ],
+    "services": [
+        {
+            "title": "STRING",
+            "created_at": "TIMESTAMP",
+            "createde_by": "UID",
+            "description": "STRING",
+            "id": "SELF UID",
+            "orders": "NUMBER",
+            "total_vendors": "NUMBER",
+            "category_ref": "REF",
+            "image": "URL"
+        }
+    ],
+    "users": [
+        {
+            "uid": "UID",
+            "name": "STRING",
+            "email": "STRING",
+            "role": "String",
+            "status": "Active|Blocked",
+            "isCompany": "BOOLEAN",
+            "total_orders":"NUMBER"
+        }
+    ]
+}
