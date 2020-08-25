@@ -83,3 +83,10 @@ export default {
 }
 
 </script>
+
+<style>
+ @import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.5.55/css/materialdesignicons.min.css');
+ .v-dialog__content.v-dialog__content--active {
+    z-index: 99999999 !important;
+  }
+</style>

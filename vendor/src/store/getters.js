@@ -12,9 +12,9 @@
 
 const getters = {
 
-	// COMPONENT
-		// vx-autosuggest
-	// starredPages: state => state.navbarSearchAndPinList.data.filter((page) => page.highlightAction),
+  // COMPONENT
+  // vx-autosuggest
+  // starredPages: state => state.navbarSearchAndPinList.data.filter((page) => page.highlightAction),
   windowBreakPoint: state => {
 
     // This should be same as tailwind. So, it stays in sync with tailwind utility classes
@@ -23,6 +23,9 @@ const getters = {
     else if (state.windowWidth >= 768) return "md"
     else if (state.windowWidth >= 576) return "sm"
     else return "xs"
+  },
+  getCategories: s => {
+    return s.categories
   }
 }
 

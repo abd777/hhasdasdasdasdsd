@@ -17,13 +17,16 @@ import mutations from "./mutations"
 import actions from "./actions"
 
 Vue.use(Vuex)
-
-import  auth   from "./auth/auth";
+  import services from './services/index'
+import auth from "./auth/auth";
 export default new Vuex.Store({
-    getters,
-    mutations,
-    state,
-    actions,
-    modules:{ 'auth':auth },
-    strict: process.env.NODE_ENV !== 'production'
+  getters,
+  mutations,
+  state,
+  actions,
+  modules: {
+    'auth': auth,
+    services
+  },
+  strict: process.env.NODE_ENV !== 'production'
 })
