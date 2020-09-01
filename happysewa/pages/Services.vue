@@ -22,11 +22,8 @@
             <div class="c_card text-center p-5">
               <i class="mdi h1 text-primary" :class="[v.icon]"></i>
               <h3>{{v.title}}</h3>
-              <b-button variant="primary" class="mt-3">Explore</b-button>
+              <b-button variant="primary" class="mt-3" :to="'explore/'+v.id">Explore</b-button>
             </div>
-            <b-list-group class="my-5">
-              <b-list-group-item href="#" v-for="(val,key) in v.services" :key="key">{{ val }}</b-list-group-item>
-            </b-list-group>
           </b-col>
         </b-row>
       </b-container>
@@ -51,22 +48,7 @@ export default {
     var cats = await StoreDB.collection("categories").get();
     var arr = [];
     for (const catRef of cats.docs) {
-      var o = {};
-      var cat = catRef.data();
-      o.title = cat.title;
-      o.icon = cat.icon;
-      var Ref = StoreDB.collection("categories").doc(cat.id);
-      var services = await StoreDB.collection("services")
-        .where("category_ref", "==", Ref)
-        .get();
-      var a = [];
-      services.forEach((service) => {
-        a.push(service.data().title);
-      });
-      o.services = a;
-      console.log(o);
-      console.log("asdad", o);
-      arr.push(o);
+      arr.push(catRef.data());
     }
     console.log(arr);
     this.categories = arr;

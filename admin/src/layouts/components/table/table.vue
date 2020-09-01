@@ -13,6 +13,12 @@
       <v-btn color="primary" class="ml-4" v-if="isNew" @click="add()">New Item</v-btn>
     </v-card-title>
     <v-data-table :headers="headers" :items="contents" :search="search">
+      <template v-slot:item.id="{ item }">{{ }}</template>
+      <template v-slot:item.placed_at="{ item }">{{ item.placed_at.toDate()}}</template>
+      <template
+        v-slot:item.selectedTime="{ item }"
+      >{{ item.selectedTime+' - '+ (item.selectedTime+1)}}</template>
+
       <template v-slot:item.image="{ item }">
         <img :src="item.image" alt="image" height="100px" />
       </template>

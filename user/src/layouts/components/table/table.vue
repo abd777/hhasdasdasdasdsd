@@ -1,73 +1,61 @@
 <template>
-    <vx-card>
-      <v-card-title>
-        {{ title }}
-        <v-spacer></v-spacer>
-        <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line hide-details></v-text-field>
-            <v-btn
-              color="primary"
-              class="ml-4"
-              v-if="isNew"
-              @click="add()" >New Item</v-btn>
-      </v-card-title>
-      <v-data-table :headers="headers" :items="contents" :search="search">
-        <template  v-slot:item.actions="{ item }"  >
-          <div v-if="isOrders"> 
-            <v-btn
-              color="primary"
-              dark
-              class="mb-2"
-              @click="verify(item)"
-            >Verify</v-btn>
-            </div>
-          <div v-else>
-              <v-btn
-                color="primary"
-                dark
-                class="mb-2"
-                @click="open(item)"
-              >open</v-btn>
-            </div>          
-        </template>
-      </v-data-table>
-    </vx-card>
+  <vx-card>
+    <v-card-title>
+      {{ title }}
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
+    <v-data-table :headers="headers" :items="contents" :search="search">
+      <template v-slot:item.id="{ item }">{{ }}</template>
+      <template v-slot:item.placed_at="{ item }">{{ item.placed_at.toDate()}}</template>
+      <template
+        v-slot:item.selectedTime="{ item }"
+      >{{ item.selectedTime+' - '+ (item.selectedTime+1)}}</template>
+      <template v-slot:item.actions="{ item }">
+        <v-btn
+          color="success"
+          @click="markAsCompleted(item)"
+          v-if="item.status=='delivered'"
+          text
+          flat
+        >Verfiy</v-btn>
+        <span v-else>No Actions</span>
+      </template>
+      <template v-slot:item.status="{ item }">
+        <span v-if="item.status=='pending'" class="text-warning">Pending</span>
+        <span v-if="item.status=='delivered'" class="blue--text">Delivered</span>
+        <span v-if="item.status=='completed'" class="text-success">Completed</span>
+      </template>
+    </v-data-table>
+  </vx-card>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        search: '',
-        editedIndex: -1,
-        editedItem: {
-        serviceTitle: '',
-        serviceDescription:''
+export default {
+  data() {
+    return {
+      counter: 1,
+      search: "",
+      dialog: false,
+      editedIndex: -1,
+      editedItem: {
+        serviceTitle: "",
+        serviceDescription: "",
       },
-      }
-    }, methods: {
-      // blockItem(item){
-      //   this.$emit('block',item);
-      // },
-      // deleteItem(item){
-      //   this.$emit('delete',item)
-      // },
-      verify(item){
-        this.$emit('verify',item);
-        
-      },
-      open(item){
-        this.$emit('open',item);       
-      },
-      // editItem(item){
-      //   console.log(item,"Edit");
-      //   this.$emit('editService',item)
-      // },
-      // add(){
-      //    this.$emit('addService')
-      // }
+    };
+  },
+  methods: {
+    markAsCompleted(item) {
+      this.$emit("verify", item);
     },
-    props:['headers','contents','title','isOrders','isNew'],
-  }
+  },
+  props: ["headers", "contents", "title"],
+};
 </script>
 <style>
-
 </style>

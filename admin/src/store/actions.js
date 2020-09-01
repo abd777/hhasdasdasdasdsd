@@ -14,23 +14,33 @@ const actions = {
   // /////////////////////////////////////////////
 
   // Vertical NavMenu
-  updateVerticalNavMenuWidth({ commit }, width) {
+  updateVerticalNavMenuWidth({
+    commit
+  }, width) {
     commit('UPDATE_VERTICAL_NAV_MENU_WIDTH', width)
   },
   //for setting the user
-  setUser({ commit }, payload) {
+  setUser({
+    commit
+  }, payload) {
     commit("setUser", payload);
   },
   // VxAutoSuggest
-  updateStarredPage({ commit }, payload) {
+  updateStarredPage({
+    commit
+  }, payload) {
     commit('UPDATE_STARRED_PAGE', payload)
   },
 
   // The Navbar
-  arrangeStarredPagesLimited({ commit }, list) {
+  arrangeStarredPagesLimited({
+    commit
+  }, list) {
     commit('ARRANGE_STARRED_PAGES_LIMITED', list)
   },
-  arrangeStarredPagesMore({ commit }, list) {
+  arrangeStarredPagesMore({
+    commit
+  }, list) {
     commit('ARRANGE_STARRED_PAGES_MORE', list)
   },
 
@@ -38,10 +48,14 @@ const actions = {
   // UI
   // /////////////////////////////////////////////
 
-  toggleContentOverlay({ commit }) {
+  toggleContentOverlay({
+    commit
+  }) {
     commit('TOGGLE_CONTENT_OVERLAY')
   },
-  updateTheme({ commit }, val) {
+  updateTheme({
+    commit
+  }, val) {
     commit('UPDATE_THEME', val)
   },
 
@@ -49,12 +63,24 @@ const actions = {
   // User/Account
   // /////////////////////////////////////////////
 
-  updateUserInfo({ commit }, payload) {
+  updateUserInfo({
+    commit
+  }, payload) {
     commit('UPDATE_USER_INFO', payload)
   },
   //  ////////////////////////////////////////////
   // Functionality Related
   // ///////////////////////////////////////////
+
+  subToOrders(s, p) {
+    firebase.firestore().collection('orders').onSnapshot((snap) => {
+      var arr = []
+      snap.forEach((cat) => {
+        arr.push(cat.data())
+      })
+      p(arr)
+    })
+  },
   subscribeToServices(s, p) {
     firebase.firestore().collection('services').onSnapshot(snap => {
       var arr = []

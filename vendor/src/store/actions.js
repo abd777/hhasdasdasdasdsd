@@ -82,6 +82,26 @@ const actions = {
       })
       commit('setCategories', arr)
     })
+  },
+  subToOrders(s, p) {
+    firebase.firestore().collection('orders').where('vendor_id', '==', firebase.auth().currentUser.uid).onSnapshot((snap) => {
+      var arr = []
+      snap.forEach((cat) => {
+        arr.push(cat.data())
+      })
+      p(arr)
+    })
+  },
+  changeStatus(s, p) {
+    return new Promise((resolve, reject) => {
+      firebase.firestore().collection('orders').doc(p.id).update({
+        status: 'delivered'
+      }).then((snap) => {
+        resolve()
+      }).catch(err => {
+        reject()
+      })
+    })
   }
 }
 

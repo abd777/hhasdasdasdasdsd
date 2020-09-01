@@ -1,19 +1,23 @@
 <template>
   <div>
     <appHeader></appHeader>
-    <Nuxt />
+    <Nuxt class="pb-5" />
+    <appFooter></appFooter>
   </div>
 </template>
 <script>
 import header from "@/components/home/header";
+import footer from "@/components/Home/footer.vue";
 export default {
   components: {
     appHeader: header,
+    appFooter: footer,
   },
 };
 </script>
 
 <style>
+@import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.5.55/css/materialdesignicons.min.css');
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;

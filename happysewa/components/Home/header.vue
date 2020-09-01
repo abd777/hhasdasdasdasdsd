@@ -180,13 +180,13 @@
 <script>
 import { auth } from "@/services/firebase";
 import { mapGetters } from "vuex";
+import { mapFields } from "vuex-map-fields";
 export default {
   data() {
     return {
       loading: false,
       loc: location.protocol + "//" + location.hostname,
       signupModal: false,
-      loginModal: false,
       login: {
         email: null,
         password: null,
@@ -201,6 +201,7 @@ export default {
     };
   },
   computed: {
+    ...mapFields(["loginModal"]),
     ...mapGetters({ currentUser: "getUser" }),
     isLoginEmailValid() {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -233,7 +234,7 @@ export default {
   mounted() {
     if (!process.server) {
       window.addEventListener("scroll", (e) => {
-        console.log(window.scrollY);
+        
         this.clientHeight = window.scrollY;
       });
     }

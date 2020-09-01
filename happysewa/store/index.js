@@ -1,19 +1,27 @@
 import {
   auth,
-  StoreDB
+  StoreDB,
+  fb
 } from '../services/firebase'
+import {
+  getField,
+  updateField
+} from 'vuex-map-fields'
 export const state = () => ({
-  user: null
+  user: null,
+  loginModal: false
 })
 export const mutations = {
   setUser(s, p) {
     s.user = p
-  }
+  },
+  updateField
 }
 export const getters = {
   getUser(s) {
     return s.user
-  }
+  },
+  getField
 }
 export const actions = {
   signout(s, p) {
@@ -59,4 +67,28 @@ export const actions = {
 
     })
   },
+  placeOrder(s, p) {
+    console.log(p.user)
+    return new Promise((resolve, reject) => {
+      var o = {
+        service_ref: StoreDB.collection('services').doc(p.item.id),
+        service_name: p.item.name,
+        selectedTime: p.selectedTime,
+        placed_at: fb.firestore.Timestamp.fromDate(new Date()),
+        placed_by: StoreDB.collection('users').doc(p.user.uid),
+        user_id: p.user.uid,
+        user_name: p.user.fullName || 'A User',
+        vendor_ref: StoreDB.collection('users').doc(p.item.created_by),
+        vendor_id: p.item.created_by,
+        status: 'pending'
+      }
+      var dRef = StoreDB.collection('orders').doc()
+      o['id'] = dRef.id
+      dRef.set(o).then(() => {
+        resolve()
+      }).catch(err => {
+        reject(err)
+      })
+    })
+  }
 }
