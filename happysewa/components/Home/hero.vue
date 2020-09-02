@@ -8,20 +8,36 @@
       <p class="c_p1 text-center">One Stop Shop For Everyday Services.</p>
       <b-row class="no-gutters pl-lg-4 pr-lg-1 px-2 py-1 mutliple_search_wrapper">
         <b-col lg="4" class="c_input_wrapper">
-          <b-input placeholder="What are you searching for?" class="rounded border-0 c_input"></b-input>
+          <b-input
+            placeholder="What are you searching for?"
+            v-model="search"
+            class="rounded border-0 c_input"
+          ></b-input>
         </b-col>
         <b-col md="12" lg="3" class="d-flex c_input_wrapper">
-          <b-input placeholder="Location?" class="border-0 c_input"></b-input>
+          <b-input placeholder="Location?" v-model="location" class="border-0 c_input"></b-input>
           <i class="mdi mdi-target text-secondary c_p1 mt-1"></i>
         </b-col>
         <b-col cols="12" lg="3">
-          <input list="categories" class="form-control border-0 c_input" placeholder="Categories" />
+          <input
+            list="categories"
+           
+            class="form-control border-0 c_input"
+            placeholder="Categories"
+            v-model="selectedCategory"
+          />
           <datalist id="categories" style="margin:0px;padding:0px;">
-            <option :value="i" v-for="(v,i) in 3" :key="i">{{ i }}</option>
+            <option :value="v.title" v-for="(v,i) in categories" :key="i">{{v.title}}</option>
           </datalist>
         </b-col>
+ 
         <b-col cols="12" lg="2" class="text-right">
-          <b-button variant="primary" class="h-100 w-100" style="border-radius:10rem">Search</b-button>
+          <b-button
+            variant="primary"
+            class="h-100 w-100"
+            style="border-radius:10rem"
+            @click="openExplore()"
+          >Search</b-button>
         </b-col>
       </b-row>
     </div>
@@ -95,24 +111,45 @@
 </template>
 
 <script>
+import { StoreDB } from "@/services/firebase";
 import header from "./header";
+import { mapFields } from "vuex-map-fields";
+import {mapGetters} from "vuex"
 export default {
   data() {
     return {
       slide: 0,
+      
+ 
     };
   },
+
   components: {
     appHeader: header,
+  },
+  computed: {
+    ...mapFields([
+      "search.selectedCategory",
+      "search.search",
+      "search.location",
+    ]),
+    ...mapGetters({categories:'getCategories'})
+  },
+  methods: {
+    openExplore() {
+      this.$router.push("/explore");
+    },
+    
   },
 };
 </script>
 
-<style scoped>
+<style  >
 .container_wrapper {
   height: 100vh;
   background-size: 100% 100%;
 }
+
 .mutliple_search_wrapper {
   background-color: white;
   border-radius: 100px;
@@ -122,16 +159,19 @@ export default {
   border-right: 1px #cccccc solid;
   outline: none;
 }
+
 @media (max-width: 992px) {
   .c_input_wrapper {
     border-right: none;
     border-bottom: 1px #ccc solid;
   }
+
   .mutliple_search_wrapper {
     width: 50%;
     border-radius: 20px;
   }
 }
+
 @media (max-width: 600px) {
   .mutliple_search_wrapper {
     width: 80%;

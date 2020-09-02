@@ -22,7 +22,7 @@
             <div class="c_card text-center p-5">
               <i class="mdi h1 text-primary" :class="[v.icon]"></i>
               <h3>{{v.title}}</h3>
-              <b-button variant="primary" class="mt-3" :to="'explore/'+v.id">Explore</b-button>
+              <b-button variant="primary" class="mt-3" @click="explore(v.title)">Explore</b-button>
             </div>
           </b-col>
         </b-row>
@@ -37,21 +37,25 @@
 import header from "../components/Home/header.vue";
 import footer from "../components/Home/footer.vue";
 import { StoreDB } from "@/services/firebase";
+import { mapGetters } from "vuex";
+import { mapFields } from "vuex-map-fields";
 export default {
   data() {
-    return {
-      categories: [],
-    };
+    return {};
   },
-  components: { "app-header": header, appFooter: footer },
-  async fetch() {
-    var cats = await StoreDB.collection("categories").get();
-    var arr = [];
-    for (const catRef of cats.docs) {
-      arr.push(catRef.data());
+  computed: {
+    ...mapGetters({ categories: "getCategories" }),
+    ...mapFields(["search.selectedCategory"]),
+  },
+  components: {
+    "app-header": header,
+    appFooter: footer,
+  },
+  methods: {
+    explore(i) {
+      this.selectedCategory = i
+      this.$router.push('/explore')
     }
-    console.log(arr);
-    this.categories = arr;
   },
 };
 </script>
@@ -63,12 +67,15 @@ export default {
   background-size: 100% 100%;
   padding: 10vh 0px;
 }
+
 .services_bg {
   background-color: #dcdcdc;
 }
+
 .c_card {
   background-color: white;
 }
+
 .hero_wrapper {
   height: 100vh;
   background-size: 100% 100%;

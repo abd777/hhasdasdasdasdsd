@@ -9,17 +9,39 @@ import {
 } from 'vuex-map-fields'
 export const state = () => ({
   user: null,
-  loginModal: false
+  loginModal: false,
+  search: {
+    selectedCategory: '',
+    search: '',
+    location: ''
+  },
+  categories: [],
+  settings: {
+    percentage: 0,
+    ytVideo: ''
+  }
 })
 export const mutations = {
   setUser(s, p) {
     s.user = p
   },
+  setCategories(s, p) {
+    s.categories = p
+  },
+  setSettings(s, p) {
+    s.settings = p
+  },
   updateField
 }
 export const getters = {
+  getSettings(s) {
+    return s.settings
+  },
   getUser(s) {
     return s.user
+  },
+  getCategories(s) {
+    return s.categories
   },
   getField
 }
@@ -56,7 +78,7 @@ export const actions = {
   },
   getServices(s, p) {
     return new Promise((resolve, reject) => {
-      StoreDB.collection('services').get().then(snap => {
+      StoreDB.collection('services').where("available_days", "array-contains", new Date().getDay()).get().then(snap => {
         var arr = []
         snap.forEach(s => {
           arr.push(s.data())
@@ -64,7 +86,6 @@ export const actions = {
         console.log(arr)
         resolve(arr)
       })
-
     })
   },
   placeOrder(s, p) {
@@ -90,5 +111,23 @@ export const actions = {
         reject(err)
       })
     })
+  },
+  async setCategories(s, p) {
+    console.log('ASDASD')
+    var cats = await StoreDB.collection("categories").get();
+    var arr = [];
+    for (const catRef of cats.docs) {
+      arr.push(catRef.data());
+    }
+    //console.log(arr);
+    s.commit('setCategories', arr)
+  },
+  setSettings(s,p) {
+
+    StoreDB.collection("settings").doc('global').get().then((res) => {
+      s.commit('setSettings', res.data())
+
+    })
+
   }
 }
