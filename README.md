@@ -1,14 +1,14 @@
 # happysewa-vue-dynamic
 Revamped Happy Sewa site. 
 
-# To Run Admin And Vendor Dashboards 
+# To Run Admin And Vendor Dashboards (admin and vendor    folder)
 first run  ( in respective directory )
 > ``` npm install ```
 
 then run  
 > ``` npm run serve ```
 
-# To Run User Dashboard
+# To Run User Dashboard (user folder)
 
 first run   ( in respective directory )
 > ``` npm install ```
@@ -20,7 +20,7 @@ then run
 
 then run the nuxt part with these commands
 
-first run   ( in respective directory )
+first run   ( in respective directory ) ( happysewa.   folder)
 > ``` npm install ```
 
 then run  
